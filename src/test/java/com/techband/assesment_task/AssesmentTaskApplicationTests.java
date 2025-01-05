@@ -1,4 +1,4 @@
-package com.monkmaze.assesment_task;
+package com.techband.assesment_task;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
