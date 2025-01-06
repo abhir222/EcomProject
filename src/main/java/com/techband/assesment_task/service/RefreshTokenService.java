@@ -14,7 +14,7 @@ import com.techband.assesment_task.repository.UserRepository;
 @Service
 public class RefreshTokenService {
 
-	private final long refreshTokenValidity = 2*60*1000;
+	private final long refreshTokenValidity = 2*60*60*1000;
 	
 	@Autowired
 	private RefreshTokenRepository refreshTokenRepository;
