@@ -3,6 +3,7 @@ package com.techband.assesment_task.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,22 +11,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techband.assesment_task.entities.Product;
-import com.techband.assesment_task.repository.ProductRepository;
+import com.techband.assesment_task.service.ProductService;
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/api/product")
 public class ProductController {
 
 	@Autowired
-	private ProductRepository productRepository;
+	private ProductService productService;
 	
 	@PostMapping
-	public Product createProduct(@RequestBody Product product) {
-		return productRepository.save(product);
+	public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+		 Product createdProduct = productService.saveProduct(product);
+		 return ResponseEntity.ok(createdProduct);
 	}
 	
 	@GetMapping
 	public List<Product> productsList(){
-		return productRepository.findAll();
+		return productService.getProduct();
 	}
 }

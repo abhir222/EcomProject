@@ -41,7 +41,6 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/api/signup", "/api/signin", "/api/refresh").permitAll()
                 .requestMatchers("/h2-console/**").permitAll()
                 .requestMatchers("/api/refresh").permitAll()
-                .requestMatchers("/registered-user", "/users").authenticated()
                 .anyRequest()
                 .authenticated())
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(point))
