@@ -1,6 +1,7 @@
 package com.techband.assesment_task.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,5 +23,8 @@ public class ProductService {
 		return productRepository.findAll();
 	}
 	
+	public Optional<Product> findProductById(Long productId) {
+		return productRepository.findById(productId);
+	}
 	
 }
