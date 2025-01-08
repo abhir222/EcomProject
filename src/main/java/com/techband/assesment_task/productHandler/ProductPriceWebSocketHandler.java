@@ -1,6 +1,5 @@
 package com.techband.assesment_task.productHandler;
 
-import java.util.Optional;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -26,13 +25,11 @@ public class ProductPriceWebSocketHandler extends TextWebSocketHandler{
 	
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		String productId = session.getUri().getPath().split("/")[3];
-		Long id = Long.parseLong(productId);
 		//steps to save the price in database
 		//fetch the product from the database
-//		Product product = this.productService.findProductById(Long.parseLong(productId))
-//				.orElseThrow(() -> new RuntimeException("Product Not Found!!"));
+		Product product = this.productService.findProductById(Long.parseLong(productId))
+				.orElseThrow(() -> new RuntimeException("Product Not Found!!"));
 		
-		Product product = productService.findProductById(id).orElseThrow(() -> new RuntimeException("Product not found!!"));
 		
 		ScheduledExecutorService executor = Executors.newScheduledThreadPool(0);
 		executor.scheduleAtFixedRate(() -> {
