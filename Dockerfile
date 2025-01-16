@@ -7,4 +7,4 @@ ADD target/ecom-application.jar ecom-application.jar
 # Step 4: Expose the port, that your application will run
 EXPOSE 8080
 # Step 5: Command to run the application
-ENTRYPOINT ["java", "-jar", "/ecom-application.jar"]
+ENTRYPOINT ["java", "-jar", "ecom-application.jar"]
