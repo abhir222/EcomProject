@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -13,8 +14,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +29,7 @@ import com.techband.assesment_task.dto.JwtResponse;
 import com.techband.assesment_task.dto.RefreshTokenRequest;
 import com.techband.assesment_task.entities.RefreshToken;
 import com.techband.assesment_task.entities.User;
+import com.techband.assesment_task.exception.UserNotFoundException;
 import com.techband.assesment_task.service.RefreshTokenService;
 import com.techband.assesment_task.service.UserService;
 
@@ -83,6 +87,19 @@ public class AuthController {
 	@GetMapping("/users")
 	public List<User> usersList(){
 		return userService.getAllUsers();
+	}
+	
+	@DeleteMapping("/user/{userId}")
+	public ResponseEntity<?> removeUser(@PathVariable("userId") Long id){
+			try {
+				userService.deleteUserById(id);
+				return ResponseEntity.ok("User data removed succsefully!");
+			} catch(UserNotFoundException ex) {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+			} catch(Exception e) {
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while deleting the user");
+			}
+		
 	}
 	
 	@PostMapping("/signin")

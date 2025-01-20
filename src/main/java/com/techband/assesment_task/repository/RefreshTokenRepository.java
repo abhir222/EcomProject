@@ -10,4 +10,6 @@ import com.techband.assesment_task.entities.RefreshToken;
 public interface RefreshTokenRepository extends JpaRepository<RefreshToken, Long>{
 
 	Optional<RefreshToken> findByRefreshToken(String token);
+
+	void deleteByUserId(Long id);
 }
